@@ -14,3 +14,9 @@ variable "public_access" {
   type        = bool
   default     = false
 }
+
+variable "enable_versioning" {
+  description = "Set to true to enable versioning for the S3 bucket, false to disable. Default is true."
+  type        = bool
+  default     = true
+}
