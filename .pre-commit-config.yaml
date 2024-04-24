@@ -3,8 +3,6 @@ repos:
     rev: v1.88.0
     hooks:
       - id: terraform_fmt
-        args:
-          - "--args=--lockfile=false"
       - id: terraform_tflint
         args:
           - "--args=--only=terraform_deprecated_interpolation"

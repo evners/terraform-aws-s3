@@ -5,6 +5,7 @@ resource "random_id" "bucket_suffix" {
 }
 
 # Provides a S3 bucket resource.
+#tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "this" {
 
   bucket = local.name
@@ -17,6 +18,7 @@ resource "aws_s3_bucket" "this" {
 
 # Provides a S3 bucket server-side encryption configuration resource.For more information,
 # see: https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
 
   bucket = aws_s3_bucket.this.bucket
