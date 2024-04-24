@@ -1,11 +1,11 @@
-name: Lint
+name: Integration
 on:
   pull_request:
 
 jobs:
   fmt-validate:
     runs-on: ubuntu-latest
-    name: Check Terraform file are formatted correctly
+    name: fmt-validate
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,6 +21,8 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
+    name: lint
+    needs: fmt-validate
     steps:
       - uses: actions/checkout@v4
         with:
@@ -49,7 +51,7 @@ jobs:
         run: tflint -f compact
 
   tfsec:
-    name: tfsec
+    name: security-analysis
     needs: lint
     runs-on: ubuntu-latest
 
@@ -61,8 +63,9 @@ jobs:
         uses: aquasecurity/tfsec-action@v1.0.0
 
   tfdocs:
-    runs-on: ubuntu-latest
+    name: create-docs
     needs: tfsec
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
